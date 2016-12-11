@@ -18,7 +18,8 @@
 
   <style>
     html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background-color: #900d0d;
+      /*background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);*/
       background-size:cover;
       font-family:'helvetica neue';
       text-align: center;
@@ -58,14 +59,64 @@
     .hand {
       width:50%;
       height:6px;
-      background:black;
+      background:#fff;
       position: absolute;
       top:50%;
+      transform: rotate(90deg);
+      transform-origin: 100%;
+      transition: all 0.05s cubic-bezier(0.51, 1.97, 0.58, 1);
     }
+
 
   </style>
 
   <script>
+
+    const secondHand = document.querySelector('.second-hand');
+    const hourHand = document.querySelector('.hour-hand');
+    const minuteHand = document.querySelector('.min-hand');
+
+
+    function runClock(){
+
+      setTimeout(function(){
+
+        let date = new Date();
+        let second = date.getSeconds();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let ampm = 'AM';
+
+        if(hour>12) {
+          ampm = 'PM';
+        }
+
+        if(second < 10){
+          second = '0'+second;
+        }
+
+        if(hour>12){
+          hour = hour - 12;
+        }
+
+        let secondHandDeg = ((second / 60) * 360)+90;
+        secondHand.style.transform = `rotate(${secondHandDeg}deg)`;
+
+        let hourHandDeg = ((hour / 12) * 360)+90;
+        hourHand.style.transform = `rotate(${hourHandDeg}deg)`;
+
+        let minuteHandDeg = ((minute / 60) * 360)+90;
+        minuteHand.style.transform = `rotate(${minuteHandDeg}deg)`;
+
+        // console.log( hour + ':' + minute + ':' + second + ' ' + ampm);
+        runClock();
+      }, 1000);
+
+
+    }
+
+    runClock();
+
 
 
   </script>
