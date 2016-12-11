@@ -59,8 +59,46 @@
 
 <script>
 
-</script>
+let keys = document.getElementsByClassName('key');
+let keyCode = '';
+let audioElement;
 
+window.onkeydown = function(e){
+
+  // get keycode
+  keyCode = e.keyCode;
+
+  // get key with key code
+  let key = document.querySelector('[data-key="'+keyCode+'"].key');
+
+  // don't do anything if the key doesn't exist
+  if(!key) return;
+
+  // get audio with key code
+  audioElement = document.querySelector('audio[data-key="'+keyCode+'"]')
+
+  // add class to key
+  key.className = key.className + ' playing';
+
+  // play audio
+  audioElement.currentTime = 0; 
+  audioElement.play();
+
+  // remove class from key
+  setTimeout(function(){  
+    key.classList.remove('playing');
+  }, 100);
+
+}
+
+function playSound( audioEl ) {
+  console.log(audioEl)
+  audioEl.play();
+}
+
+
+
+</script>
 
 </body>
 </html>
